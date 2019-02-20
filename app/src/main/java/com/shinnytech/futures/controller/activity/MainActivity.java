@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
         mBinding = (ActivityMainDrawerBinding) mViewDataBinding;
         mMainActivityPresenter = new MainActivityPresenter(this, sContext, mBinding, mToolbar, mToolbarTitle);
         //检查是否第一次启动APP,弹出免责条款
-        mMainActivityPresenter.checkResponsibility();
+//        mMainActivityPresenter.checkResponsibility();
         //首先检查网络状态，网络断开就直接退出应用
         mMainActivityPresenter.checkNetwork();
     }

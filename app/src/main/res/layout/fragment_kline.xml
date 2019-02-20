@@ -12,5 +12,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/tfv_des"
+            android:layout_marginTop="20dp"
+            android:textSize="10dp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 </layout>

@@ -1,7 +1,11 @@
 package com.shinnytech.futures.model.bean.futureinfobean;
 
 
+import android.print.PrinterId;
 import android.support.annotation.NonNull;
+
+import com.shinnytech.futures.model.livem.ENTRY_TYPE;
+import com.shinnytech.futures.model.livem.LINE_COLOR_TYPE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +69,24 @@ public class KlineEntity {
         private String volume;
         private String open_oi;
         private String close_oi;
+        private ENTRY_TYPE entry_type;
+        private LINE_COLOR_TYPE line_color_type;
+
+        public LINE_COLOR_TYPE getLine_color_type() {
+            return line_color_type;
+        }
+
+        public void setLine_color_type(LINE_COLOR_TYPE line_color_type) {
+            this.line_color_type = line_color_type;
+        }
+
+        public ENTRY_TYPE getEntry_type() {
+            return entry_type;
+        }
+
+        public void setEntry_type(ENTRY_TYPE entry_type) {
+            this.entry_type = entry_type;
+        }
 
         public String getClose() {
             return close;

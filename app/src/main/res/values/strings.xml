@@ -227,4 +227,6 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
+    <string name="ma_highlight">增6:%1$.3f 增3:%2$.3f 减6:%3$.3f 减3:%4$.3f</string>
+
 </resources>

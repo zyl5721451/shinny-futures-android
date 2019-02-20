@@ -36,6 +36,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.jobs.MoveViewJob;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.listener.OnDrawLineChartTouchListener;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.shinnytech.futures.R;
@@ -48,6 +49,7 @@ import com.shinnytech.futures.model.bean.futureinfobean.ChartEntity;
 import com.shinnytech.futures.model.bean.futureinfobean.KlineEntity;
 import com.shinnytech.futures.model.bean.searchinfobean.SearchEntity;
 import com.shinnytech.futures.model.engine.LatestFileManager;
+import com.shinnytech.futures.model.livem.AnalysisData;
 import com.shinnytech.futures.utils.LogUtils;
 import com.shinnytech.futures.utils.MathUtils;
 import com.shinnytech.futures.utils.SPUtils;
@@ -125,6 +127,7 @@ public class KlineFragment extends BaseChartFragment {
     private ChartEntity mChartEntity;
     private KlineEntity mKlineEntity;
     private List<Integer> mas;
+    private AnalysisData mAnylysisData;
 
 
     /**
@@ -155,6 +158,7 @@ public class KlineFragment extends BaseChartFragment {
         mKlineType = getArguments().getString(FRAGMENT_KLINE_TYPE);
         if (mXValsFormat != null)
             mSimpleDateFormat = new SimpleDateFormat(mXValsFormat, Locale.CHINA);
+
     }
 
     @Override
@@ -339,6 +343,22 @@ public class KlineFragment extends BaseChartFragment {
             }
         });
 
+        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                CandleEntry entry = (CandleEntry) e;
+                String maString = String.format(getResources().getString(R.string.ma_highlight), entry.getClose()+mAnylysisData.getStepByStepType(),
+                        entry.getClose()+mAnylysisData.getStepByStepTypeHalf(),entry.getClose() - mAnylysisData.getStepByStepType(),
+                        entry.getClose() - mAnylysisData.getStepByStepTypeHalf());
+                mTvDes.setText(maString);
+            }
+
+            @Override
+            public void onNothingSelected() {
+                mTvDes.setText("");
+            }
+        });
+
     }
 
     /**
@@ -440,6 +460,14 @@ public class KlineFragment extends BaseChartFragment {
                 if (!ins_list.equals(instrument_id) || !duration.equals(mKlineType)) return;
                 mKlineEntity = klineEntities.get(mKlineType);
                 if (mKlineEntity == null) return;
+
+
+                mAnylysisData = new AnalysisData();
+                Map<String, KlineEntity.DataEntity> tempEntities = mAnylysisData.getResultEntities(mKlineEntity.getData());
+                mKlineEntity.setData(tempEntities);
+                mKlineEntity.setLast_id(String.valueOf(tempEntities.size() - 1));
+                right_id_t = String.valueOf(tempEntities.size() - 1);
+
                 String last_id_t = mKlineEntity.getLast_id();
                 Map<String, KlineEntity.DataEntity> dataEntities = mKlineEntity.getData();
                 if (last_id_t == null || "-1".equals(last_id_t) || dataEntities.isEmpty()) return;
@@ -651,15 +679,16 @@ public class KlineFragment extends BaseChartFragment {
     private LineDataSet generateLineDataSet(int para, int color, String label) {
         List<Entry> entries = new ArrayList<>();
         for (int i = mLeftIndex; i <= mLastIndex; i++) {
-            if (i >= mLeftIndex + para - 1)
-                entries.add(generateLineDataEntry(i, para - 1));
+//            if (i >= mLeftIndex + para - 1)
+                entries.add(generateLineDataEntry(i, 0));
         }
         LineDataSet set = new LineDataSet(entries, label);
         set.setColor(color);
-        set.setLineWidth(0.7f);
+        set.setLineWidth(0.8f);
         set.setDrawCircles(false);
         set.setDrawCircleHole(false);
-        set.setDrawValues(false);
+        set.setDrawValues(true);
+        set.setValueTextColor(ContextCompat.getColor(getActivity(), R.color.white));
         set.setHighlightEnabled(false);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         return set;
@@ -667,7 +696,7 @@ public class KlineFragment extends BaseChartFragment {
 
     private LineData generateLineData() {
         List<ILineDataSet> dataSets = new ArrayList<>();
-        for (int i = 0; i < mas.size(); i++) {
+        for (int i = 0; i < 1; i++) {
             int ma = mas.get(i);
             int color = mColorMas[i];
             dataSets.add(generateLineDataSet(ma, color, "MA" + ma));
