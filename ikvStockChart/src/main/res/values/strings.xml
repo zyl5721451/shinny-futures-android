@@ -1,0 +1,20 @@
+<resources>
+
+    <string name="ma_normal">MA(5, 10, 20)</string>
+    <string name="ma_highlight">高:%1$.3f 低:%2$.3f Open:%3$.3f Close:%4$.3f ●趋势:%5$.2s 增6:%6$.3f 增3:%7$.3f 减6:%8$.3f 减3:%9$.3f ●MA5:%10$.3f MA10:%11$.3f 涨跌:%12$.3f 高降3:%13$.3f 振幅:%14$.3f MA1:%15$.3f MA2:%16$.3f MA3:%17$.3f 调6+:%18$.3f 调3+:%19$.3f 调6-:%20$.3f 调3-:%21$.3f 调Close:%22$.3f</string>
+
+    <string name="macd_normal">MACD(12, 26, 9)</string>
+    <string name="macd_highlight">MACD(12, 26, 9) ●DIFF %1$.2f ●DEA %2$.2f ●MACD %3$.2f</string>
+
+    <string name="rsi_normal">RSI(6, 12, 24)</string>
+    <string name="rsi_highlight">RSI(6, 12, 24) ●RSI1 %1$.2f ●RSI2 %2$.2f ●RSI3 %3$.2f</string>
+
+    <string name="kdj_normal">KDJ(9, 3, 3)</string>
+    <string name="kdj_highlight">KDJ(9, 3, 3) ●K %1$.2f ●D %2$.2f ●J %3$.2f</string>
+
+    <string name="boll_normal">BOLL(20, 2)</string>
+    <string name="boll_highlight">BOLL(20, 2) ●MID %1$.2f ●UPPER %2$.2f ●LOWER %3$.2f</string>
+
+    <string name="volume_highlight">●Curr %1$.2f ●MA5 %2$.2f ●MA10 %3$.2f</string>
+
+</resources>
