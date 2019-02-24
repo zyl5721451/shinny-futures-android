@@ -225,6 +225,7 @@ public class FutureInfoActivityPresenter {
         fragmentList.add(transactionFragment);
         mInfoPagerAdapter = new ViewPagerFragmentAdapter(mFutureInfoActivity.getSupportFragmentManager(), fragmentList);
         mBinding.vpInfoContent.setAdapter(mInfoPagerAdapter);
+        mBinding.vpInfoContent.setVisibility(View.GONE);
         //设置初始化页为盘口页，去除滑动效果
         if (mNav_position == 1) {
             mBinding.vpInfoContent.setCurrentItem(1, false);
