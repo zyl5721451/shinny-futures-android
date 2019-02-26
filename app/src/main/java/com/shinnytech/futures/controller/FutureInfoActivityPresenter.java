@@ -50,6 +50,7 @@ import com.shinnytech.futures.model.bean.searchinfobean.SearchEntity;
 import com.shinnytech.futures.model.engine.DataManager;
 import com.shinnytech.futures.model.engine.LatestFileManager;
 import com.shinnytech.futures.model.listener.SimpleRecyclerViewItemClickListener;
+import com.shinnytech.futures.model.livem.KLineFragment;
 import com.shinnytech.futures.utils.DividerGridItemDecorationUtils;
 import com.shinnytech.futures.utils.KeyboardUtils;
 import com.shinnytech.futures.utils.NetworkUtils;
@@ -661,16 +662,16 @@ public class FutureInfoActivityPresenter {
                 return new CurrentDayFragment();
             case DAY_FRAGMENT:
                 klineType = (String) SPUtils.get(sContext, CONFIG_KLINE_DAY_TYPE, KLINE_1_DAY);
-                return KlineFragment.newInstance("yy/MM/dd", klineType, DAY_FRAGMENT);
+                return KLineFragment.newInstance("yy/MM/dd", klineType, DAY_FRAGMENT);
             case HOUR_FRAGMENT:
                 klineType = (String) SPUtils.get(sContext, CONFIG_KLINE_HOUR_TYPE, KLINE_1_HOUR);
-                return KlineFragment.newInstance("dd/HH:mm", klineType, HOUR_FRAGMENT);
+                return KLineFragment.newInstance("dd/HH:mm", klineType, HOUR_FRAGMENT);
             case MINUTE_FRAGMENT:
                 klineType = (String) SPUtils.get(sContext, CONFIG_KLINE_MINUTE_TYPE, KLINE_5_MINUTE);
-                return KlineFragment.newInstance("dd/HH:mm", klineType, MINUTE_FRAGMENT);
+                return KLineFragment.newInstance("dd/HH:mm", klineType, MINUTE_FRAGMENT);
             case SECOND_FRAGMENT:
                 klineType = (String) SPUtils.get(sContext, CONFIG_KLINE_SECOND_TYPE, KLINE_3_SECOND);
-                return KlineFragment.newInstance("HH:mm:ss", klineType, SECOND_FRAGMENT);
+                return KLineFragment.newInstance("HH:mm:ss", klineType, SECOND_FRAGMENT);
             default:
                 return null;
         }

@@ -227,6 +227,6 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
 
-    <string name="ma_highlight">增6:%1$.3f 增3:%2$.3f 减6:%3$.3f 减3:%4$.3f</string>
+    <string name="ma_highlight">高:%1$.3f 低:%2$.3f Open:%3$.3f Close:%4$.3f ●趋势:%5$.2s 增6:%6$.3f 增3:%7$.3f 减6:%8$.3f 减3:%9$.3f ●MA5:%10$.3f MA10:%11$.3f 涨跌:%12$.3f 高降3:%13$.3f 振幅:%14$.3f MA1:%15$.3f MA2:%16$.3f MA3:%17$.3f 调6+:%18$.3f 调3+:%19$.3f 调6-:%20$.3f 调3-:%21$.3f 调Close:%22$.3f</string>
 
 </resources>

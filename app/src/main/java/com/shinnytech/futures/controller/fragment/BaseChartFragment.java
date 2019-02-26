@@ -139,7 +139,7 @@ public class BaseChartFragment extends LazyLoadFragment {
     private ViewDataBinding mViewDataBinding;
     protected boolean mIsUpdate;
     protected boolean mFollowKLine;
-    protected TextView mTvDes;
+//    protected TextView mTvDes;
 
     /**
      * date: 7/9/17
@@ -168,7 +168,7 @@ public class BaseChartFragment extends LazyLoadFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mViewDataBinding = DataBindingUtil.inflate(inflater, mLayoutId, container, false);
         mChart = mViewDataBinding.getRoot().findViewById(R.id.chart);
-        mTvDes = mViewDataBinding.getRoot().findViewById(R.id.tfv_des);
+//        mTvDes = mViewDataBinding.getRoot().findViewById(R.id.tfv_des);
         //注册EventBus
         EventBus.getDefault().register(this);
         initData();

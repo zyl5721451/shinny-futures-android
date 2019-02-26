@@ -46,6 +46,7 @@ import com.tencent.bugly.beta.Beta;
 import com.umeng.commonsdk.UMConfigure;
 
 import org.greenrobot.eventbus.EventBus;
+import org.xutils.x;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -155,6 +156,7 @@ public class BaseApplication extends Application implements ServiceConnection {
 
         //广播注册
         registerBroaderCast();
+        x.Ext.init(this);
 
     }
 

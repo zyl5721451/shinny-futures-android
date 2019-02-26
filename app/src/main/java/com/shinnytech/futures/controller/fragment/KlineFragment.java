@@ -49,7 +49,6 @@ import com.shinnytech.futures.model.bean.futureinfobean.ChartEntity;
 import com.shinnytech.futures.model.bean.futureinfobean.KlineEntity;
 import com.shinnytech.futures.model.bean.searchinfobean.SearchEntity;
 import com.shinnytech.futures.model.engine.LatestFileManager;
-import com.shinnytech.futures.model.livem.AnalysisData;
 import com.shinnytech.futures.utils.LogUtils;
 import com.shinnytech.futures.utils.MathUtils;
 import com.shinnytech.futures.utils.SPUtils;
@@ -127,7 +126,6 @@ public class KlineFragment extends BaseChartFragment {
     private ChartEntity mChartEntity;
     private KlineEntity mKlineEntity;
     private List<Integer> mas;
-    private AnalysisData mAnylysisData;
 
 
     /**
@@ -346,16 +344,16 @@ public class KlineFragment extends BaseChartFragment {
         mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                CandleEntry entry = (CandleEntry) e;
-                String maString = String.format(getResources().getString(R.string.ma_highlight), entry.getClose()+mAnylysisData.getStepByStepType(),
-                        entry.getClose()+mAnylysisData.getStepByStepTypeHalf(),entry.getClose() - mAnylysisData.getStepByStepType(),
-                        entry.getClose() - mAnylysisData.getStepByStepTypeHalf());
-                mTvDes.setText(maString);
+//                CandleEntry entry = (CandleEntry) e;
+//                String maString = String.format(getResources().getString(R.string.ma_highlight), entry.getClose()+mAnylysisData.getStepByStepType(),
+//                        entry.getClose()+mAnylysisData.getStepByStepTypeHalf(),entry.getClose() - mAnylysisData.getStepByStepType(),
+//                        entry.getClose() - mAnylysisData.getStepByStepTypeHalf());
+//                mTvDes.setText(maString);
             }
 
             @Override
             public void onNothingSelected() {
-                mTvDes.setText("");
+//                mTvDes.setText("");
             }
         });
 
@@ -462,11 +460,11 @@ public class KlineFragment extends BaseChartFragment {
                 if (mKlineEntity == null) return;
 
 
-                mAnylysisData = new AnalysisData();
-                Map<String, KlineEntity.DataEntity> tempEntities = mAnylysisData.getResultEntities(mKlineEntity.getData());
-                mKlineEntity.setData(tempEntities);
-                mKlineEntity.setLast_id(String.valueOf(tempEntities.size() - 1));
-                right_id_t = String.valueOf(tempEntities.size() - 1);
+//                mAnylysisData = new AnalysisData();
+//                Map<String, KlineEntity.DataEntity> tempEntities = mAnylysisData.getResultEntities(mKlineEntity.getData());
+//                mKlineEntity.setData(tempEntities);
+//                mKlineEntity.setLast_id(String.valueOf(tempEntities.size() - 1));
+//                right_id_t = String.valueOf(tempEntities.size() - 1);
 
                 String last_id_t = mKlineEntity.getLast_id();
                 Map<String, KlineEntity.DataEntity> dataEntities = mKlineEntity.getData();

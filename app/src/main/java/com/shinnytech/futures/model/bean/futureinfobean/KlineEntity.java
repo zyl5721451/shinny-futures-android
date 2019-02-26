@@ -1,7 +1,6 @@
 package com.shinnytech.futures.model.bean.futureinfobean;
 
 
-import android.print.PrinterId;
 import android.support.annotation.NonNull;
 
 import com.shinnytech.futures.model.livem.ENTRY_TYPE;
