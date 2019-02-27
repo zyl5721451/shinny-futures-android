@@ -3,6 +3,7 @@ package com.shinnytech.futures.model.adapter;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.shinnytech.futures.constants.CommonConstants;
 import com.shinnytech.futures.databinding.ItemActivitySettingBinding;
 import com.shinnytech.futures.model.bean.settingbean.SettingEntity;
 import com.shinnytech.futures.utils.SPUtils;
+import com.wordplat.ikvstockchart.LocalDataManager;
 
 import java.util.List;
 
@@ -114,6 +116,8 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ItemView
 
             itemView.setTag(content);
 
+            mBinding.etValue.setText(LocalDataManager.step);
+
         }
 
         @Override
@@ -137,6 +141,9 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.ItemView
                     break;
                 case R.id.setting_toggle:
                     saveSettingConfig();
+                    if(!TextUtils.isEmpty(mBinding.etValue.getText().toString())) {
+                        LocalDataManager.step = mBinding.etValue.getText().toString();
+                    }
                     break;
                 default:
                     break;

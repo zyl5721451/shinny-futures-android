@@ -110,7 +110,7 @@ public class KLineFragment extends BaseChartFragment {
     private boolean isCheckAccurance;
     private String name;
     private String monthName;
-    private boolean isCandleLine;
+    private boolean isCandleLine = true;
     private CandleLineDrawing mCandleLineDrawing;
     public static String factor;
     public StepData mAnalysisData;
@@ -191,7 +191,7 @@ public class KLineFragment extends BaseChartFragment {
         isCheckAccurance  = bundle.getBoolean("accurance");
         name = bundle.getString("name");
         factor = bundle.getString("factor");
-        isCandleLine = bundle.getBoolean("candleline",false);
+        isCandleLine = bundle.getBoolean("candleline",true);
         initFirstType();
         initUI();
 
@@ -336,9 +336,6 @@ public class KLineFragment extends BaseChartFragment {
         }
     }
 
-    public void setCandleLine(boolean candleLine) {
-        isCandleLine = candleLine;
-    }
 
     public String getMonthName() {
         return monthName;
@@ -463,18 +460,18 @@ public class KLineFragment extends BaseChartFragment {
 //                }
 
                 float factor  = 1.00f;
-                String maString = String.format(getResources().getString(com.wordplat.ikvstockchart.R.string.ma_highlight),entry.getHigh(),entry.getLow(),
+                String maString = String.format(getResources().getString(R.string.ma_highlight),entry.getHigh(),entry.getLow(),
                         entry.getOpen(),entry.getClose(),
-                        getTrendName(entry.getEntry_type()),entry.getClose()+mAnalysisData.getStepByStepType(),
-                        entry.getClose()+mAnalysisData.getStepByStepTypeHalf(),entry.getClose() - mAnalysisData.getStepByStepType(),
-                        entry.getClose() - mAnalysisData.getStepByStepTypeHalf(),
-                        entry.getMa5(),entry.getMa10(),entry.getRate(),entry.getHigh() - mAnalysisData.getStepByStepTypeHalf(),
+                        getTrendName(entry.getEntry_type()),entry.getClose()+mAnalysisData.getStepByStepType(entry.getClose()),
+                        entry.getClose()+mAnalysisData.getStepByStepTypeHalf(entry.getClose()),entry.getClose() - mAnalysisData.getStepByStepType(entry.getClose()),
+                        entry.getClose() - mAnalysisData.getStepByStepTypeHalf(entry.getClose()),
+                        entry.getMa5(),entry.getMa10(),entry.getRate(),entry.getHigh() - mAnalysisData.getStepByStepTypeHalf(entry.getClose()),
                         (entry.getHigh() - entry.getLow())/entry.getLow()*100,
                         ma1,ma2,ma3,
-                        (entry.getClose()+mAnalysisData.getStepByStepType()-mFactor)*factor,
-                        (entry.getClose()+mAnalysisData.getStepByStepTypeHalf()-mFactor)*factor,
-                        (entry.getClose() - mAnalysisData.getStepByStepType()-mFactor)*factor,
-                        (entry.getClose() - mAnalysisData.getStepByStepTypeHalf()-mFactor)*factor,
+                        (entry.getClose()+mAnalysisData.getStepByStepType(entry.getClose())-mFactor)*factor,
+                        (entry.getClose()+mAnalysisData.getStepByStepTypeHalf(entry.getClose())-mFactor)*factor,
+                        (entry.getClose() - mAnalysisData.getStepByStepType(entry.getClose())-mFactor)*factor,
+                        (entry.getClose() - mAnalysisData.getStepByStepTypeHalf(entry.getClose())-mFactor)*factor,
                         (entry.getClose() - mFactor)*factor);
 
                 MA_Text.setText(getSpannableString(maString,

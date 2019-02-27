@@ -19,17 +19,20 @@ public class StepData {
     private float ajustFactor = 0.935f;
     private float step;
 
-    public float getStepByStepType() {
-        return step * ajustFactor;
+    public float getStepByStepType(float close) {
+        float floatStep = step;
+        return close*floatStep/100.0f;
+    }
+
+    public float getStepByStepTypeHalf(float close) {
+        float floatStep = step/2.0f;
+        return close*floatStep/100.0f;
     }
 
 
-    public float getStepByStepTypeHalf() {
-        return step / 2.0f;
+    public StepData() {
+        this.step = Float.parseFloat(LocalDataManager.step);
     }
-
-
-
 
     private EntrySet tempEntrySeet = new EntrySet();
     private Entry currentEntry;
@@ -83,7 +86,7 @@ public class StepData {
 
                         getNextCircle(i, entry);
                         i = initi;
-                    }else if(entry.getClose()>=currentEntry.getClose()+getStepByStepType()){
+                    }else if(entry.getClose()>=currentEntry.getClose()+getStepByStepType(currentEntry.getClose())){
                         entry.setEntry_type(FIRST_ENTRY_TYPE.NORMALUP);
                         downingEntry = currentEntry;
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_DOWNING);
@@ -96,7 +99,7 @@ public class StepData {
                         entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                         getNextCircle(i,entry);
                         i = initi;
-                    }else if(entry.getClose()<=currentEntry.getClose()-getStepByStepType()) {
+                    }else if(entry.getClose()<=currentEntry.getClose()-getStepByStepType(currentEntry.getClose())) {
                         entry.setEntry_type(FIRST_ENTRY_TYPE.NORMALDOWN);
                         upingEntry = currentEntry;
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_UPING);
@@ -111,7 +114,7 @@ public class StepData {
                             entry.setEntry_type(FIRST_ENTRY_TYPE.DONWING);
                             getNextCircle(i,entry);
                             i = initi;
-                        } else if(upingEntry!=null&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose())<=downEntry.getClose()-getStepByStepTypeHalf()) {
+                        } else if(upingEntry!=null&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose())<=downEntry.getClose()-getStepByStepTypeHalf(downEntry.getClose())) {
                             resetTrend();
                             entry.setEntry_type(FIRST_ENTRY_TYPE.DONWING);
                             getNextCircle(i,entry);
@@ -131,13 +134,13 @@ public class StepData {
                         entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                         getNextCircle(i,entry);
                         i = initi;
-                    }else if(downingEntry!=null&&entry.getClose()>=currentEntry.getClose()&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>=upEntry.getClose() + getStepByStepTypeHalf()) {//上升且超过上一个关键点3点及以上
+                    }else if(downingEntry!=null&&entry.getClose()>=currentEntry.getClose()&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>=upEntry.getClose() + getStepByStepTypeHalf(upEntry.getClose())) {//上升且超过上一个关键点3点及以上
                         resetTrend();
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_LOW_DOWN);
                         entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                         getNextCircle(i,entry);
                         i = initi;
-                    }  else if(entry.getClose()>=currentEntry.getClose()+getStepByStepType()){
+                    }  else if(entry.getClose()>=currentEntry.getClose()+getStepByStepType(currentEntry.getClose())){
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_LOW_DOWN);
                         if(upEntry!=null&&entry.getClose()>upEntry.getClose()) {
                             entry.setEntry_type(FIRST_ENTRY_TYPE.NORMALUP);
@@ -157,7 +160,7 @@ public class StepData {
                             entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                             getNextCircle(i,entry);
                             i = initi;
-                        } else if(downingEntry!=null&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>=upEntry.getClose()+getStepByStepTypeHalf()) {
+                        } else if(downingEntry!=null&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>=upEntry.getClose()+getStepByStepTypeHalf(upEntry.getClose())) {
                             resetTrend();
                             entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                             getNextCircle(i,entry);
@@ -177,13 +180,13 @@ public class StepData {
                         entry.setEntry_type(FIRST_ENTRY_TYPE.DONWING);
                         getNextCircle(i,entry);
                         i = initi;
-                    } else if(upingEntry!=null&&entry.getClose()<=currentEntry.getClose()&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose())<=downEntry.getClose() - getStepByStepTypeHalf()) {//下降且超过上一个关键点3点及以上
+                    } else if(upingEntry!=null&&entry.getClose()<=currentEntry.getClose()&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose())<=downEntry.getClose() - getStepByStepTypeHalf(downEntry.getClose())) {//下降且超过上一个关键点3点及以上
                         resetTrend();
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_LOW_UP);
                         entry.setEntry_type(FIRST_ENTRY_TYPE.DONWING);
                         getNextCircle(i,entry);
                         i = initi;
-                    } else if(entry.getClose()<=currentEntry.getClose()-getStepByStepType()){
+                    } else if(entry.getClose()<=currentEntry.getClose()-getStepByStepType(currentEntry.getClose())){
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_LOW_UP);
                         if(downEntry!=null&&entry.getClose()<downEntry.getClose()) {
                             entry.setEntry_type(FIRST_ENTRY_TYPE.NORMALDOWN);
@@ -204,7 +207,7 @@ public class StepData {
                             entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                             getNextCircle(i,entry);
                             i = initi;
-                        }else if(downingEntry!=null&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>upEntry.getClose()+getStepByStepTypeHalf()) {//超过上一个自然上升的最高点，3点，则记入上升趋势
+                        }else if(downingEntry!=null&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>upEntry.getClose()+getStepByStepTypeHalf(upEntry.getClose())) {//超过上一个自然上升的最高点，3点，则记入上升趋势
                             resetTrend();
                             entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                             getNextCircle(i,entry);
@@ -221,7 +224,7 @@ public class StepData {
                         entry.setEntry_type(FIRST_ENTRY_TYPE.DONWING);
                         getNextCircle(i,entry);
                         i = initi;
-                    }else if(upingEntry!=null&&entry.getClose()<=currentEntry.getClose()&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose())<=downEntry.getClose()-getStepByStepTypeHalf()) {
+                    }else if(upingEntry!=null&&entry.getClose()<=currentEntry.getClose()&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose())<=downEntry.getClose()-getStepByStepTypeHalf(downEntry.getClose())) {
                         upEntry = currentEntry;
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_NORMAL_UP);
                         resetTrend();
@@ -229,7 +232,7 @@ public class StepData {
                         getNextCircle(i,entry);
                         i = initi;
                     }
-                    else if(entry.getClose()<=currentEntry.getClose() - getStepByStepType()){
+                    else if(entry.getClose()<=currentEntry.getClose() - getStepByStepType(currentEntry.getClose())){
                         upEntry = currentEntry;
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_NORMAL_UP);
                         if(downEntry!=null&&entry.getClose()>downEntry.getClose()) {
@@ -250,7 +253,7 @@ public class StepData {
                             entry.setEntry_type(FIRST_ENTRY_TYPE.DONWING);
                             getNextCircle(i,entry);
                             i = initi;
-                        }else if(upingEntry!=null&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose()) <=downEntry.getClose() - getStepByStepTypeHalf()){//下降超过上一次自然下降的最低点3点以上，则记入下降趋势
+                        }else if(upingEntry!=null&&downEntry!=null&&(isCheckAccurance?entry.getLow():entry.getClose()) <=downEntry.getClose() - getStepByStepTypeHalf(downEntry.getClose())){//下降超过上一次自然下降的最低点3点以上，则记入下降趋势
                             resetTrend();
                             entry.setEntry_type(FIRST_ENTRY_TYPE.DONWING);
                             getNextCircle(i,entry);
@@ -267,7 +270,7 @@ public class StepData {
                         entry.setEntry_type(FIRST_ENTRY_TYPE.UPING);
                         getNextCircle(i,entry);
                         i = initi;
-                    }else if(downingEntry!=null&&entry.getClose()>=currentEntry.getClose()&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>=upEntry.getClose()+getStepByStepTypeHalf()) {
+                    }else if(downingEntry!=null&&entry.getClose()>=currentEntry.getClose()&&upEntry!=null&&(isCheckAccurance?entry.getHigh():entry.getClose())>=upEntry.getClose()+getStepByStepTypeHalf(upEntry.getClose())) {
                         downEntry = currentEntry;
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_NORMAL_DOWN);
                         resetTrend();
@@ -275,7 +278,7 @@ public class StepData {
                         getNextCircle(i,entry);
                         i = initi;
                     }
-                    else if(entry.getClose()>=currentEntry.getClose() + getStepByStepType()){
+                    else if(entry.getClose()>=currentEntry.getClose() + getStepByStepType(currentEntry.getClose())){
                         downEntry = currentEntry;
                         currentEntry.setLine_type(LINE_COLOR_TYPE.TYPE_NORMAL_DOWN);
                         if(upEntry!=null&&entry.getClose()<upEntry.getClose()) {
@@ -294,6 +297,7 @@ public class StepData {
             }
         }
     }
+
 
     private void resetTrend() {
         upEntry = null;
